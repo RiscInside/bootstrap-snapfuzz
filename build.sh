@@ -33,12 +33,14 @@ for TARGET in "${BUILD_TARGETS[@]}"; do
   make -j all && cd llvm_mode/ && make -j && echo $? && cd ..
 
   cp "./afl-fuzz" "${FINISH_DIR}/${TARGET}"
-  cp "./aflnet-replay" "${FINISH_DIR}/aflnet-replay"
   ((IT = IT + 1))
 done
 
 # Profuzzbench always uses binary called afl-fuzz
 ln -s ${FINISH_DIR}/afl-fuzz-noaffin-long ${FINISH_DIR}/afl-fuzz
+
+# Copu other binaries
+cp ./afl-clang-* ./afl-as ./afl-gcc ./afl-g++ ./aflnet-replay "${FINISH_DIR}/"
 
 #### Build SnapFuzz ####
 cd "${BUILD_DIR}"
